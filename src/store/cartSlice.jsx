@@ -17,7 +17,7 @@ const cartSlice = createSlice({
         }
     }
 })
-console.log(cartSlice)
+// console.log(cartSlice)
 
 export const { add, remove } = cartSlice.actions 
 export default cartSlice.reducer 

@@ -23,7 +23,7 @@ const Product = () => {
   }
 
   const card = productsData.map((product) => {
-    const { image, title, price, description } = product
+    const { image, title, price } = product
     return (<section className='col-md-3' key={product.id}>
     <div className="card" style={{width: '18rem'}}>
         <img src={image} className="card-img-top" alt={title} style={{width: '100px', height: '130px'}} />
