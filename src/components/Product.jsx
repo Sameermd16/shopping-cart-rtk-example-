@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { add } from "../store/cartSlice";
+import { products } from "../store/thunkSlice";
+
 
 const Product = () => {
-  const [productsData, setProductsData] = useState([]);
+  // const [productsData, setProductsData] = useState([]);
 //   console.log(productsData);
     const dispatch = useDispatch()
+    const productsData = useSelector((state) => state.product.data)
+
 
   useEffect(() => {
-    async function fetchProducts() {
-      const { data } = await axios.get("https://fakestoreapi.com/products");
-      // console.log(data)
-      setProductsData(data);
-    }
-    fetchProducts();
+    dispatch(products())
+    // async function fetchProducts() {
+    //   const { data } = await axios.get("https://fakestoreapi.com/products");
+    //   // console.log(data)
+    //   setProductsData(data);
+    // }
+    // fetchProducts();
   }, []);
   // console.log(JSON.stringify(productsData))
 

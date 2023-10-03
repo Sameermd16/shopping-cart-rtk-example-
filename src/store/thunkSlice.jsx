@@ -1,30 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
 
 const initialState = {
-    data: []
+    data: [],
     //loading, error...
 }
 
 const thunkSlice = createSlice({
     name: 'product',
     initialState,
-    reducers: {
-        //action creators 
-        fetchProducts: (state, action) => {
-            state.data = action.payload 
-        }
+    extraReducers: (builder) => {
+        builder.addCase(products.fulfilled, (state, action) => {
+            state.data = action.payload
+        })
+        // builder.addCase(products.pending, (store, action) => {
+        //     state.isLoading = true 
+        // })
     }
 })
 
 console.log(thunkSlice)
 
-export function products() {
-    return getProductsThunk = async (dispatch, getState) => {
-        const { data } = await axios.get("https://fakestoreapi.com/products")
-        return dispatch(fetchProducts(data))
-    } 
-}
+export const products = createAsyncThunk('product/get', async () => {
+    const {data} = await axios.get("https://fakestoreapi.com/products")
+    return data  
+})
 
-export const {} = thunkSlice.actions 
+// export function products() {
+//     return async function getProductsThunk(dispatch) {
+//         const {data} = await axios.get("https://fakestoreapi.com/products")
+//         return dispatch(fetchProducts(data))
+//     }
+// }
+console.log(products()) 
+
+export const { fetchProducts } = thunkSlice.actions  
 export default thunkSlice.reducer 
